@@ -1,4 +1,5 @@
-git --version > to validate GIT version
+to validate GIT version
+git --version 
 
 Generate SSH keys using below 
 ssh-keygen -t rsa -b 4096 (generate SSH keys)
@@ -8,9 +9,91 @@ to set up user name and email:
 git config –global user.name “<user_name>”
 git config –global user.email “<user_email_id>”
 
-	
-git config –list 
-git clone <ssh or https url>
+git config –list > List all key-value configurations
+git config --get user.name > Get the value of a single key
+
+Clone a repository from remote hosts (GitHub, GitLab, DagsHub, etc.)
+$ git clone <remote_repo_url>
+
+
+Initialize git tracking inside the current directory
+$ git init
+
+Create a git-tracked repository inside a new directory
+$ git init [dir_name]
+
+Clone only a specific branch
+$ git clone -branch <branch_name> <repo_url>
+
+Cloning into a specified directory
+$ git clone <repo_url> <dir_name>
+
+
 git init :
 Executing git init creates a .git subdirectory in the current working directory, which contains all of the necessary Git metadata for the new repository. This metadata includes subdirectories for objects, refs, and template files. A HEAD file is also created which points to the currently checked out commit.
+
+Managing remote repositories
+List remote repos
+
+$ git remote
+Create a new connection called <remote> to a remote repository on servers like GitHub, GitLab, DagsHub, etc.
+
+$ git remote add <remote> <url_to_remote>
+Remove a connection to a remote repo called <remote>
+
+$ git remote rm <remote>
+Rename a remote connection
+
+$ git remote rename <old_name> <new_name>
+
+
+<<<<<<A note on cloning >>>>
+
+There are two primary methods of cloning a repository - HTTPS syntax and
+SSH syntax. While SSH cloning is generally considered a bit more secure
+because you have to use an SSH key for authentication, HTTPS cloning is
+much simpler and the recommended cloning option by GitHub.
+
+
+HTTPS
+
+$ git clone https://github.com/your_username/repo_name.git
+
+SSH
+
+$ git clone git@github.com:user_name/repo_name.git
+git alias 
+	
+It is important to note that there is no direct git alias command. Aliases are created through the use of the git config command and the Git configuration files. As with other configuration values, aliases can be created in a local or global scope.
+To better understand Git aliases let us create some examples.
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+
+
+
+Add a file or directory to git for tracking
+$ git add <filename_or_dir>
+
+Add all untracked and tracked files inside the current directory to git
+$ git add .
+
+Remove a file from a working directory or staging area
+$ git rm <<filename_or_dir>
+
+
+See changes in the local repository
+$ git status
+
+Saving a snapshot of the staged changes with a custom message
+$ git commit -m "[Commit message]"
+
+Staging changes in all tracked files and committing with a message
+$ git add -am "[Commit message]"
+
+Editing the message of the latest commit
+$ git commit --amend -m “[New commit message]”
+
+
 
