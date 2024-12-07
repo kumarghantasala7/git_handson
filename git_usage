@@ -34,36 +34,31 @@ Executing git init creates a .git subdirectory in the current working directory,
 
 Managing remote repositories
 List remote repos
-
 $ git remote
+
 Create a new connection called <remote> to a remote repository on servers like GitHub, GitLab, DagsHub, etc.
-
 $ git remote add <remote> <url_to_remote>
+
 Remove a connection to a remote repo called <remote>
-
 $ git remote rm <remote>
-Rename a remote connection
 
+Rename a remote connection
 $ git remote rename <old_name> <new_name>
 
 
 <<<<<<A note on cloning >>>>
-
 There are two primary methods of cloning a repository - HTTPS syntax and
 SSH syntax. While SSH cloning is generally considered a bit more secure
 because you have to use an SSH key for authentication, HTTPS cloning is
 much simpler and the recommended cloning option by GitHub.
 
-
 HTTPS
-
 $ git clone https://github.com/your_username/repo_name.git
 
 SSH
-
 $ git clone git@github.com:user_name/repo_name.git
-git alias 
-	
+
+git alias --
 It is important to note that there is no direct git alias command. Aliases are created through the use of the git config command and the Git configuration files. As with other configuration values, aliases can be created in a local or global scope.
 To better understand Git aliases let us create some examples.
 $ git config --global alias.co checkout
@@ -71,7 +66,7 @@ $ git config --global alias.br branch
 $ git config --global alias.ci commit
 $ git config --global alias.st status
 
-
+<<<<Working With Files>>>>
 
 Add a file or directory to git for tracking
 $ git add <filename_or_dir>
@@ -82,7 +77,6 @@ $ git add .
 Remove a file from a working directory or staging area
 $ git rm <<filename_or_dir>
 
-
 See changes in the local repository
 $ git status
 
@@ -90,10 +84,142 @@ Saving a snapshot of the staged changes with a custom message
 $ git commit -m "[Commit message]"
 
 Staging changes in all tracked files and committing with a message
-$ git add -am "[Commit message]"
+$ git commit -am "[Commit message]"
 
 Editing the message of the latest commit
-$ git commit --amend -m “[New commit message]”
+$ git commit --amend -m “[New commit message
+Saving staged and unstaged changes to stash for a later use (see below for the explanation of a stash) 
+$ git stash
+
+Stashing staged, unstaged and untracked files as well 
+$ git stash -U 	
+
+Stashing everything (including ignored files) 
+$ git stash --all
+
+Reapply previously stashed changes and empty the stash 
+$ git stash pop
+
+Reapply previously stashed changes and keep the stash 
+$ git stash apply
+
+Dropping changes in the stash 
+$ git stash drop
+
+Show uncommitted changes since the last commit 
+$ git diff
+
+Show the differences between two commits (should provide the commit IDs) 
+$ git diff <id_1> <id_2>
+
+<<<<Branches>>>>
+
+List all branches
+$ git branch
+$ git branch --list
+$ git branch -a [shows remote branches as well]
+
+Create a new local branch named new_branch without checking out that branch
+$ git branch <new_branch>
+
+Switch into an existing branch named <branch>
+$ git checkout <branch>
+
+Create a new local branch and switch into it
+$ git checkout -b <new_branch>
+
+Safe delete a local branch (prevents deleting unmerged changes)
+$ git branch -d <branch>
+
+Force delete a local branch (whether merged or unmerged)
+$ git branch -D <branch>
+
+
+Rename the current branch to <new_name>
+$ git branch -m <new_name>
+
+Push a copy of local branch named branch to the remote repo 
+$ git push <remote_repo> branch~
+
+Delete a remote branch named branch
+$ git push <remote_repo> :branch
+
+$ git push <remote_repo> --delete branch
+Merging a branch into the main branch
+
+$ git checkout main
+$ git merge <other_branch>
+
+Merging a branch and creating a commit message
+$ git merge --no-ff <other_branch>
+
+Compare the differences between two branches
+$ git diff <branch_1> <branch_2>
+
+Compare a single <file> between two branches
+$ git diff <branch_1> <branch_2> <file>
+
+
+
+<<<<pullling changes>>>>
+
+Download all commits and branches from the <remote> without applying them on the local repo
+$ git fetch <remote>
+
+Only download the specified <branch> from the <remote>
+$ git fetch <remote> <branch>
+
+Merge the fetched changes if accepted
+$ git merge <remote>/<branch> 
+
+more aggressive version of fetch which calls fetch and merge simultaneously
+$ git pull <remote>
+
+
+
+
+<<<<Logging and reviewing work>>>>
+
+List all commits with their author, commit ID, date and message 
+$ git log
+
+List one commit per line
+$ git log --oneline [-n]
+
+Log all commits with diff information:
+$ git log --stat
+
+Log commits after some date
+$ git log --oneline --after="YYYY-MM-DD"
+
+Log commits before some date
+$ git log --oneline --before="last year"
+
+
+
+<<<Reversing changes>>>
+
+Checking out (switching to) older commits
+$ git checkout HEAD~2
+
+Checks out the third-to-last commit. 
+$ git checkout <commit_id>
+
+Undo the latest commit but leave the working directory unchanged
+$ git reset HEAD~1
+
+
+Note:You can undo as many commits as you want by changing the number after the tilde.
+
+
+Discard all changes of the latest commit (no easy recovery)
+$ git reset --hard HEAD~1
+
+
+Undo a single given commit, without modifying commits that come
+after it (a safe reset)
+$ git revert [commit_id]
+
 
 
 
