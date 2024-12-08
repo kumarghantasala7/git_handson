@@ -45,6 +45,24 @@ $ git remote rm <remote>
 Rename a remote connection
 $ git remote rename <old_name> <new_name>
 
+<<<to set up remote upstream branch>>>
+
+git remote add upstream <upstream_repository_URL>
+for example, 
+git remote add upstream https://github.com/TuringLang/Turing.jl.git
+
+git remote show origin 
+git remote -v
+
+if no upstream is not set up, follow the below process to set up one while pushing changes.
+
+git push --set-upstream origin <branch name>
+
+e.g.
+git push --set-upstream origin master (or)
+git push -u origin master (or)
+
+
 
 <<<<<<A note on cloning >>>>
 There are two primary methods of cloning a repository - HTTPS syntax and
@@ -65,6 +83,19 @@ $ git config --global alias.co checkout
 $ git config --global alias.br branch
 $ git config --global alias.ci commit
 $ git config --global alias.st status
+
+
+<<<to remove git alias>>>
+git config --global --unset alias.trololo
+I find it safer than editing directly the config file (git config --global --edit)
+
+In case someone has multiple values for the same alias and has got that:
+
+$ git config --global --unset alias.trololo
+warning: alias.trololo has multiple values
+Use --unset-all
+
+e.g. git config --global --unset-all alias.trololo
 
 <<<<Working With Files>>>>
 
@@ -88,14 +119,20 @@ $ git commit -am "[Commit message]"
 
 Editing the message of the latest commit
 $ git commit --amend -m “[New commit message
+
 Saving staged and unstaged changes to stash for a later use (see below for the explanation of a stash) 
 $ git stash
 
 Stashing staged, unstaged and untracked files as well 
-$ git stash -U 	
+$ git stash -u
 
 Stashing everything (including ignored files) 
 $ git stash --all
+
+to see the stash items before appplying
+
+git stash show (show staged ones)
+git stash show -u (show staged, unstaged, untracked items)
 
 Reapply previously stashed changes and empty the stash 
 $ git stash pop
@@ -105,8 +142,8 @@ $ git stash apply
 
 Dropping changes in the stash 
 $ git stash drop
-
-Show uncommitted changes since the last commit 
+  
+Show uncommitted changes since the last commit (default behaviour.) 
 $ git diff
 
 Show the differences between two commits (should provide the commit IDs) 
@@ -209,7 +246,7 @@ Undo the latest commit but leave the working directory unchanged
 $ git reset HEAD~1
 
 
-Note:You can undo as many commits as you want by changing the number after the tilde.
+Note: You can undo as many commits as you want by changing the number after the tilde.
 
 
 Discard all changes of the latest commit (no easy recovery)
